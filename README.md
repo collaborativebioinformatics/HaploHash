@@ -76,7 +76,7 @@ Example block — **chr22:27,840,691–28,224,919** (PITPNB, TTC28 · 60 transcr
 - GO BP / MF: 6 / 11 significant terms — all PITPNB, lipid transport
 - GO CC: 3 significant terms — all TTC28, mitotic spindle
 - Reactome: 3 pathways — phospholipid / PI metabolism
-- ⚠️ all hits driven by a single gene — interpret cautiously
+- all hits driven by a single gene (needs to be validated) 
 
 ## Hashing & privacy
 
