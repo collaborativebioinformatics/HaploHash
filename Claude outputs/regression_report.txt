@@ -1,0 +1,107 @@
+==============================================================================
+CLUSTER COUNT vs AVI TOP-1% DENSITY
+linear regression and restricted cubic spline (3 knots)
+==============================================================================
+generated        : 2026-09-18T09:08:06
+input directory  : /mnt/user-data/uploads/HaploHash/intersect-constraint-AVI
+x                : n_clusters
+y                : avi_top1_per_kb
+blocks analysed  : 39,074
+
+------------------------------------------------------------------------------
+1. DISTRIBUTIONS
+------------------------------------------------------------------------------
+                               min         p10      median         p90           max
+  n_clusters                     1           5         159         709         5,085
+  avi_top1_per_kb                0       1.323       14.93       78.84       840.374
+  block_length                 724   1.749e+04   4.836e+04    1.47e+05    6.4164e+06
+  blocks with avi_top1_per_kb == 0 : 87 (0.22%), retained because y is untransformed
+  Spearman rho (x, y)          : 0.1035
+  Pearson r (raw x, raw y)     : 0.0504
+  Pearson r (log10 x, raw y)   : 0.0523
+
+------------------------------------------------------------------------------
+2. VARIANT A - raw y on raw x
+------------------------------------------------------------------------------
+  predictor : n_clusters
+  response  : avi_top1_per_kb (untransformed)
+  n         : 39,074
+  spline knots (10%, 50%, 90% of x), knots on the raw cluster-count scale: 5, 159, 709
+
+  LINEAR MODEL
+    term                                    estimate          SE    SE (HC3)   t (HC3)     p (HC3)
+    intercept                                29.1472      0.2817      0.2826   103.150    < 1e-300
+                                        95% CI (HC3)  [28.5933, 29.701]
+    n_clusters                            0.00620282   0.0006221   0.0006328     9.802    1.17e-22
+                                        95% CI (HC3)  [0.00496249, 0.00744316]
+    R2 = 0.002538   adj R2 = 0.002513   RMSE = 43.6019   df_resid = 39,072
+
+  RESTRICTED CUBIC SPLINE, 3 KNOTS
+    term                                    estimate          SE    SE (HC3)   t (HC3)     p (HC3)
+    intercept                                28.0813      0.3898        0.39    72.012    < 1e-300
+                                        95% CI (HC3)  [27.317, 28.8456]
+    n_clusters (linear term)                 0.01591    0.002532    0.002546     6.249    4.18e-10
+                                        95% CI (HC3)  [0.0109196, 0.0209003]
+    n_clusters (spline term)              -0.0192257    0.004862    0.004908    -3.917    8.97e-05
+                                        95% CI (HC3)  [-0.028845, -0.00960642]
+    R2 = 0.002937   adj R2 = 0.002886   RMSE = 43.5937   df_resid = 39,071
+
+    Test of nonlinearity (spline term = 0, 1 df):
+      classical F = 15.637, p = 7.69e-05
+      HC3 robust F = 15.346, p = 8.97e-05
+      R2 gained over the linear model: +0.000399
+
+------------------------------------------------------------------------------
+3. VARIANT B - raw y on log10 x
+------------------------------------------------------------------------------
+  predictor : log10(n_clusters)
+  response  : avi_top1_per_kb (untransformed)
+  n         : 39,074
+  spline knots (10%, 50%, 90% of x), knots on the log10 cluster-count scale: 0.699, 2.201, 2.851
+
+  LINEAR MODEL
+    term                                    estimate          SE    SE (HC3)   t (HC3)     p (HC3)
+    intercept                                  24.93      0.6168      0.6105    40.833    < 1e-300
+                                        95% CI (HC3)  [23.7333, 26.1267]
+    log10(n_clusters)                        2.95255      0.2852      0.2825    10.450    1.59e-25
+                                        95% CI (HC3)  [2.39875, 3.50635]
+    R2 = 0.002736   adj R2 = 0.002710   RMSE = 43.5975   df_resid = 39,072
+
+  RESTRICTED CUBIC SPLINE, 3 KNOTS
+    term                                    estimate          SE    SE (HC3)   t (HC3)     p (HC3)
+    intercept                                26.7858      0.8144      0.7897    33.920   1.39e-248
+                                        95% CI (HC3)  [25.238, 28.3336]
+    log10(n_clusters) (linear term)          1.10609      0.6011      0.5819     1.901      0.0573
+                                        95% CI (HC3)  [-0.0345231, 2.2467]
+    log10(n_clusters) (spline term)          2.16232      0.6196      0.6076     3.559    0.000373
+                                        95% CI (HC3)  [0.971433, 3.35321]
+    R2 = 0.003047   adj R2 = 0.002996   RMSE = 43.5913   df_resid = 39,071
+
+    Test of nonlinearity (spline term = 0, 1 df):
+      classical F = 12.177, p = 0.000484
+      HC3 robust F = 12.665, p = 0.000373
+      R2 gained over the linear model: +0.000311
+
+------------------------------------------------------------------------------
+4. NOTES ON INTERPRETATION
+------------------------------------------------------------------------------
+  With n near 39,000 every coefficient here is significant at any
+  conventional threshold, including the nonlinearity test. Read the
+  effect sizes and R2, not the p-values.
+
+  HC3 standard errors are reported alongside the classical ones because
+  the residual variance rises steeply with x; the classical SEs are
+  optimistic. Quote the HC3 column.
+
+  Variant A puts a small number of very high cluster-count blocks at
+  extreme leverage: the top 1% of x reaches 1,649 against a median of 159.
+  Variant B is the better-conditioned fit for that reason.
+
+  The 95% bands are on the conditional mean, not prediction intervals.
+  At this sample size they are narrow enough to be nearly invisible on
+  the figure; that reflects precision about the mean, not about any
+  individual block.
+
+==============================================================================
+END OF REPORT
+==============================================================================

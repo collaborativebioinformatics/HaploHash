@@ -1,7 +1,7 @@
 ==============================================================================
 JOIN REPORT: block constraint statistics x block AVI scores
 ==============================================================================
-generated          : 2026-09-17T16:56:47
+generated          : 2026-09-18T09:35:06
 input directory    : /mnt/user-data/uploads/HaploHash/intersect-constraint-AVI
 left  (AVI)        : block_avi_scores.tsv   rows = 39,074
 right (constraint) : block_cluster_stats.tsv   rows = 39,077
@@ -84,6 +84,7 @@ which both files carry as separate columns.
   avi_top1_fraction                0        87               0        0.280125
   avi_top1_per_kb                  0        87               0         840.374
   avi_top1_mean                   87         0         20.0126         28.4782
+  avi_mean                         0         0         1.45479         12.5102
   block_length                     0         0             724      6.4164e+06
 
   note: rows with a missing value in either axis are dropped from that
@@ -94,23 +95,26 @@ which both files carry as separate columns.
 ------------------------------------------------------------------------------
   panel  x                 y                           n   spearman           p
   a      n_clusters        avi_max                39,074      0.153    6.4e-203
-  b      n_clusters        avi_top10_mean         39,074      0.161   6.65e-226
-  c      n_clusters        avi_top1_count         39,074      0.203    < 1e-300
-  d      n_clusters        avi_top1_fraction      39,074      0.104    7.15e-94
-  e      n_clusters        avi_top1_per_kb        39,074      0.104    1.43e-93
-  f      n_clusters        avi_top1_mean          38,987      0.105    1.02e-95
-  g      singleton_count   avi_max                39,074      0.165   3.98e-236
-  h      singleton_count   avi_top10_mean         39,074      0.174   3.45e-264
-  i      singleton_count   avi_top1_count         39,074      0.220    < 1e-300
-  j      singleton_count   avi_top1_fraction      39,074      0.103    1.58e-92
-  k      singleton_count   avi_top1_per_kb        39,074      0.103     3.3e-92
-  l      singleton_count   avi_top1_mean          38,987      0.112   2.48e-109
-  m      dominance         avi_max                39,074     -0.035    5.28e-12
-  n      dominance         avi_top10_mean         39,074     -0.037    3.13e-13
-  o      dominance         avi_top1_count         39,074     -0.039    1.17e-14
-  p      dominance         avi_top1_fraction      39,074     -0.050    6.25e-23
-  q      dominance         avi_top1_per_kb        39,074     -0.050    7.21e-23
+  b      singleton_count   avi_max                39,074      0.165   3.98e-236
+  c      dominance         avi_max                39,074     -0.035    5.28e-12
+  d      n_clusters        avi_top10_mean         39,074      0.161   6.65e-226
+  e      singleton_count   avi_top10_mean         39,074      0.174   3.45e-264
+  f      dominance         avi_top10_mean         39,074     -0.037    3.13e-13
+  g      n_clusters        avi_top1_count         39,074      0.203    < 1e-300
+  h      singleton_count   avi_top1_count         39,074      0.220    < 1e-300
+  i      dominance         avi_top1_count         39,074     -0.039    1.17e-14
+  j      n_clusters        avi_top1_fraction      39,074      0.104    7.15e-94
+  k      singleton_count   avi_top1_fraction      39,074      0.103    1.58e-92
+  l      dominance         avi_top1_fraction      39,074     -0.050    6.25e-23
+  m      n_clusters        avi_top1_per_kb        39,074      0.104    1.43e-93
+  n      singleton_count   avi_top1_per_kb        39,074      0.103     3.3e-92
+  o      dominance         avi_top1_per_kb        39,074     -0.050    7.21e-23
+  p      n_clusters        avi_top1_mean          38,987      0.105    1.02e-95
+  q      singleton_count   avi_top1_mean          38,987      0.112   2.48e-109
   r      dominance         avi_top1_mean          38,987     -0.030     5.4e-09
+  s      n_clusters        avi_mean               39,074      0.025    5.21e-07
+  t      singleton_count   avi_mean               39,074      0.021     2.4e-05
+  u      dominance         avi_mean               39,074     -0.017    0.000846
 
 ==============================================================================
 END OF REPORT

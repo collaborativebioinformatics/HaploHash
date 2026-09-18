@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Join haploblock constraint statistics to block-level AlphaGenome Atlas AVI scores,
-write a join report, and plot a 3 x 6 matrix of descriptive scatterplots.
+write a join report, and plot a 7 x 3 matrix of descriptive scatterplots
+(rows = AVI measure on y, columns = constraint measure on x).
 
 Inputs (TSV):
   block_avi_scores.tsv     block_id, chrom, start, end, length_bp, ..., avi_* columns
@@ -19,8 +20,9 @@ Usage:
 Outputs, written to --outdir:
   block_constraint_avi_joined.tsv       merged table
   join_report.txt                       join diagnostics and per-panel statistics
-  scatter_matrix_3x6.png / .pdf         large exploratory matrix
+  scatter_matrix_7x3.png / .pdf         large exploratory matrix
   fig_constraint_vs_avi_double.pdf/.png Nature double-column (180 mm) figure
+  panels/panel_*.png / .pdf             one standalone single-column plot per pair
 """
 
 from __future__ import annotations
@@ -62,6 +64,7 @@ Y_MEASURES = [
     ("avi_top1_fraction", "avi_top1_fraction", "symlog"),
     ("avi_top1_per_kb", "avi_top1_per_kb", "symlog"),
     ("avi_top1_mean", "avi_top1_mean", "linear"),
+    ("avi_mean", "avi_mean", "linear"),
 ]
 
 SIZE_COL = "block_length"
@@ -343,19 +346,20 @@ def build_matrix(df, outpath_stem: Path, *, width_in, height_in, base_fs,
         "figure.dpi": dpi,
     })
 
-    nrow, ncol = len(X_MEASURES), len(Y_MEASURES)
-    # X measure is constant along a row, Y measure constant down a column, so
-    # sharing on those axes makes every column directly comparable.
+    # Columns are the constraint (x) measures, rows the AVI (y) measures, so the
+    # header above a column names its x variable and the label left of a row
+    # names its y variable, as a scatterplot matrix is conventionally read.
+    nrow, ncol = len(Y_MEASURES), len(X_MEASURES)
     fig, axes = plt.subplots(
         nrow, ncol, figsize=(width_in, height_in), squeeze=False,
-        sharex="row", sharey="col",
+        sharex="col", sharey="row",
         gridspec_kw={"wspace": wspace, "hspace": hspace, **margins},
     )
 
     stats_rows = []
     k = 0
-    for i, (xcol, xlabel, xscale) in enumerate(X_MEASURES):
-        for j, (ycol, ylabel, yscale) in enumerate(Y_MEASURES):
+    for i, (ycol, ylabel, yscale) in enumerate(Y_MEASURES):
+        for j, (xcol, xlabel, xscale) in enumerate(X_MEASURES):
             ax = axes[i][j]
             n, rho, p = panel(
                 ax, df, xcol, ycol, xscale, yscale,
@@ -376,16 +380,16 @@ def build_matrix(df, outpath_stem: Path, *, width_in, height_in, base_fs,
                     PANEL_LETTERS[k], loc="left", fontsize=header_fs,
                     fontweight="bold", color=INK, pad=2.0,
                 )
-            if i == 0:
+            if i == 0:  # x variable, named above its column
                 ax.annotate(
-                    ylabel, xy=(0.5, 1.0), xytext=(0, 14 if letters else 6),
+                    xlabel, xy=(0.5, 1.0), xytext=(0, 14 if letters else 8),
                     xycoords="axes fraction", textcoords="offset points",
                     ha="center", va="bottom", fontsize=header_fs,
                     fontweight="bold", color=INK,
                 )
-            if j == 0:
+            if j == 0:  # y variable, named beside its row
                 ax.annotate(
-                    xlabel, xy=(0, 0.5), xytext=(-row_label_pad, 0),
+                    ylabel, xy=(0, 0.5), xytext=(-row_label_pad, 0),
                     xycoords="axes fraction", textcoords="offset points",
                     ha="center", va="center", rotation=90,
                     fontsize=header_fs, fontweight="bold", color=INK,
@@ -410,6 +414,74 @@ def build_matrix(df, outpath_stem: Path, *, width_in, height_in, base_fs,
         fig.savefig(f"{outpath_stem}.{ext}", dpi=dpi, facecolor="white")
     plt.close(fig)
     return pd.DataFrame(stats_rows)
+
+
+def build_single_panels(df, outdir: Path, *, width_in=89 / 25.4,
+                        height_in=74 / 25.4, dpi=600):
+    """One standalone figure per x/y pair, single-column width, fully labelled.
+
+    Panel letters match the combined matrix, so panel 'a' here is panel 'a'
+    there. Each file carries its own axis labels and size key and can be
+    dropped into a slide or a supplement on its own.
+    """
+    plt.rcParams.update({
+        "font.family": "sans-serif",
+        "font.sans-serif": ["Arial", "Helvetica", "DejaVu Sans"],
+        "font.size": 7,
+        "axes.linewidth": 0.6,
+        "pdf.fonttype": 42,
+        "ps.fonttype": 42,
+    })
+    outdir.mkdir(parents=True, exist_ok=True)
+
+    smin, smax = 0.5, 15.0
+    written, k = [], 0
+    for ycol, ylabel, yscale in Y_MEASURES:
+        for xcol, xlabel, xscale in X_MEASURES:
+            letter = PANEL_LETTERS[k]
+            fig, ax = plt.subplots(figsize=(width_in, height_in))
+            fig.subplots_adjust(left=0.20, right=0.965, top=0.940, bottom=0.245)
+
+            n, rho, p = panel(
+                ax, df, xcol, ycol, xscale, yscale,
+                smin, smax, 0.08, 6.5, 1.1,
+            )
+            thin_ticks(ax, "x", xscale, xcol, 5, minor=False, log_numticks=5)
+            thin_ticks(ax, "y", yscale, ycol, 5, minor=False, log_numticks=5)
+            ax.tick_params(axis="both", labelsize=6, length=2.4, width=0.5,
+                           pad=2.0, colors=MUTED)
+            for lbl in ax.get_xticklabels() + ax.get_yticklabels():
+                lbl.set_color(INK)
+
+            ax.set_xlabel(xlabel, fontsize=7.5, fontweight="bold", color=INK,
+                          labelpad=3)
+            ax.set_ylabel(ycol, fontsize=7.5, fontweight="bold", color=INK,
+                          labelpad=3)
+            ax.set_title(letter, loc="left", fontsize=8, fontweight="bold",
+                         color=INK, pad=3)
+            ax.annotate(
+                f"n = {n:,}", xy=(0.975, 0.955), xycoords="axes fraction",
+                ha="right", va="top", fontsize=6, color=MUTED,
+                bbox=dict(boxstyle="round,pad=0.18", fc="white", ec="none",
+                          alpha=0.75),
+            )
+
+            handles, labels = size_legend_handles(df, smin, smax, 6)
+            leg = fig.legend(
+                handles, labels, loc="lower center", ncol=4, frameon=False,
+                fontsize=6, handletextpad=0.5, columnspacing=1.2,
+                borderaxespad=0.0, bbox_to_anchor=(0.5, 0.012),
+                title="block length encoded as dot area", title_fontsize=6,
+            )
+            leg.get_title().set_color(INK)
+
+            stem = outdir / f"panel_{letter}_{ycol}_vs_{xcol}"
+            for ext in ("png", "pdf"):
+                fig.savefig(f"{stem}.{ext}", dpi=dpi, facecolor="white")
+            plt.close(fig)
+            written.append(stem.name)
+            k += 1
+    return written
 
 
 # --------------------------------------------------------------------------- #
@@ -560,28 +632,32 @@ def main(argv=None) -> int:
 
     # Large exploratory matrix (screen reading).
     stats_df = build_matrix(
-        merged, outdir / "scatter_matrix_3x6",
-        width_in=17.0, height_in=9.2, base_fs=9, tick_fs=7.5, header_fs=10,
+        merged, outdir / "scatter_matrix_7x3",
+        width_in=11.0, height_in=18.7, base_fs=9, tick_fs=7.5, header_fs=10,
         rho_fs=8, smin=0.8, smax=20.0, dot_alpha=0.07, trend_lw=1.7,
         nbins_ticks=5, letters=False, dpi=200,
-        wspace=0.30, hspace=0.30, minor_ticks=True, row_label_pad=46,
-        legend_y=0.012, log_numticks=5,
-        margins={"left": 0.055, "right": 0.995, "top": 0.935, "bottom": 0.115},
+        wspace=0.24, hspace=0.26, minor_ticks=True, row_label_pad=52,
+        legend_y=0.008, log_numticks=5,
+        margins={"left": 0.085, "right": 0.988, "top": 0.962, "bottom": 0.058},
     )
 
     # Nature double-column figure: 180 mm wide.
     build_matrix(
         merged, outdir / "fig_constraint_vs_avi_double",
-        width_in=180 / 25.4, height_in=118 / 25.4, base_fs=6, tick_fs=4.8,
-        header_fs=6, rho_fs=4.8, smin=0.35, smax=7.0, dot_alpha=0.06,
+        width_in=180 / 25.4, height_in=244 / 25.4, base_fs=6, tick_fs=4.8,
+        header_fs=6.5, rho_fs=4.8, smin=0.35, smax=8.0, dot_alpha=0.06,
         trend_lw=0.9, nbins_ticks=5, letters=True, dpi=600,
-        wspace=0.52, hspace=0.42, minor_ticks=False, row_label_pad=26,
-        legend_y=0.010, log_numticks=4,
-        margins={"left": 0.072, "right": 0.992, "top": 0.915, "bottom": 0.125},
+        wspace=0.30, hspace=0.34, minor_ticks=False, row_label_pad=32,
+        legend_y=0.004, log_numticks=4,
+        margins={"left": 0.092, "right": 0.988, "top": 0.958, "bottom": 0.068},
     )
+
+    # One standalone single-column figure per x/y pair.
+    panels = build_single_panels(merged, outdir / "panels")
 
     write_report(outdir / "join_report.txt", indir, diag, merged, stats_df)
 
+    print(f"wrote {len(panels)} single panels to {outdir / 'panels'}")
     print(f"matched {diag['n_both']:,} blocks "
           f"({diag['n_avi_only']:,} AVI-only, {diag['n_cluster_only']:,} constraint-only)")
     print(f"wrote outputs to {outdir}")
