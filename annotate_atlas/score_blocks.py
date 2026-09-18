@@ -60,6 +60,7 @@ class BlockSummary:
     n_missing_avi: int = 0
     n_top1: int = 0
     sum_top1: float = 0.0
+    sum_all: float = 0.0
     maximum: float | None = None
     _last_position: int | None = None
     _top_scores: list[float] = field(default_factory=list)
@@ -76,6 +77,7 @@ class BlockSummary:
             return
 
         self.n_scored += 1
+        self.sum_all += phred
         self.maximum = phred if self.maximum is None else max(self.maximum, phred)
         if len(self._top_scores) < self.top_k:
             heapq.heappush(self._top_scores, phred)
@@ -97,6 +99,7 @@ class BlockSummary:
             self.n_top1 / (length_bp / 1000.0) if length_bp > 0 else None
         )
         top1_mean = self.sum_top1 / self.n_top1 if self.n_top1 else None
+        avi_mean = self.sum_all / self.n_scored if self.n_scored else None
         return [
             str(self.n_positions),
             str(self.n_variant_alleles),
@@ -108,6 +111,7 @@ class BlockSummary:
             format_number(top1_fraction),
             format_number(top1_per_kb),
             format_number(top1_mean),
+            format_number(avi_mean),
         ]
 
 
@@ -449,7 +453,7 @@ def write_output(
             "block_id\tchrom\tstart\tend\tlength_bp\tn_positions\t"
             "n_variant_alleles\tn_scored\tn_missing_avi\tavi_max\t"
             f"avi_top{top_k}_mean\tavi_top1_count\tavi_top1_fraction\t"
-            "avi_top1_per_kb\tavi_top1_mean\n"
+            "avi_top1_per_kb\tavi_top1_mean\tavi_mean\n"
         )
         for block, summary in zip(blocks, summaries, strict=True):
             fixed = [

@@ -54,6 +54,7 @@ class ScoreBlocksTest(unittest.TestCase):
         self.assertEqual(first.n_top1, 2)
         self.assertEqual(first.maximum, 30)
         self.assertEqual(sorted(first._top_scores), [21, 30])
+        self.assertAlmostEqual(first.sum_all / first.n_scored, (21 + 10 + 30) / 3)
         self.assertEqual(second.n_positions, 2)
         self.assertEqual(second.n_variant_alleles, 2)
         self.assertEqual(second.n_scored, 1)
