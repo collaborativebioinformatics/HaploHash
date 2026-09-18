@@ -1,3 +1,7 @@
 __pycache__/
 *.pyc
 tmp/
+.venv/
+annotate_atlas/gtex/data
+annotate_atlas/gtex/logs/
+annotate_atlas/gtex/work

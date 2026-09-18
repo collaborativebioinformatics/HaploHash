@@ -15,7 +15,7 @@ Haploblock-level functional annotation + privacy-preserving genomic hashes. 16�
 ```
 
 ![workflow](docs/image.png)
-![workflow](docs/steps_1_3_r_tools_R.png)
+![workflow](docs/bio_annotations_methods.png)
 ![workflow](docs/image_updated.png)
 
 ## Quality control
@@ -204,6 +204,50 @@ python3 annotate_atlas/score_blocks.py \
 ```
 
 The full static SNV Atlas contains roughly nine billion alternate alleles, so the genome-wide run belongs on the cluster and should read the local download, not the API.
+
+### chr22 pilot QC
+
+```bash
+uv run --project annotate_atlas python annotate_atlas/qc_variant_parquet.py
+```
+
+Writes cleaned SNVs, excluded rows, and block counts to `annotate_atlas/qc/` for
+the 12 pilot blocks. Retains distinct alleles with `AC>0`, joins blocks by
+coordinates, and adds `AF_from_counts` and `MAF_from_counts`. Original AF and
+missing AVI scores are kept and indels are checked separately.
+
+### chr22 depletion baseline
+
+```bash
+uv run --project annotate_atlas python annotate_atlas/pilot_depletion.py
+```
+
+Writes a per-block TSV and two plots to `annotate_atlas/depletion/`.
+Expected high-AVI alleles = observed scored SNVs × `avi_top1_count / n_scored`;
+the pooled ratio is total observed / sum of block expectations. AVI ≥20 defines
+high scores; unscored SNVs are omitted and undefined ratios are blank.
+This is a uniform within-block baseline without mutation-context or callability
+adjustment. The frequency plot uses AC/AN; AVI's frequency-based training makes
+it a consistency check.
+
+### GTEx eQTL comparison
+
+```bash
+GTEX_CONNECTIONS=4 bash annotate_atlas/gtex_run.sh /path/to/shared/storage/gtex
+```
+
+Downloads GTEx v8 results for all 49 tissues (about 185 GB before intermediates) and runs CPU jobs on Slurm `medium`.
+Parallel downloads use `aria2c`; omit `GTEX_CONNECTIONS` to use `curl`.
+Results go in `annotate_atlas/gtex/results/`; downloaded data and intermediates
+are stored on shared storage and excluded from git. `tissues.tsv` lists the public source URLs.
+
+Counts distinct tested autosomal SNVs, using GTEx's official significant-pair
+calls. Compares the highest and lowest `avi_top1_fraction` quintiles after stratifying by
+MAF, distance to the closest tested TSS, and number of genes tested. Lead variants
+and fine-mapped variants (DAP-G PIP ≥0.5) are separate checks. Intervals use 1,000
+bootstrap resamples of 5 Mb regions. These are descriptive associations; tissues
+share donors and variants, and the intervals are not corrected for multiple comparisons.
+`blood_sensitivity.tsv` checks finer covariate bins and exclusion of chromosome 6.
 
 ## From variant scores to haploblocks
 

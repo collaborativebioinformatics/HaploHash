@@ -1,0 +1,10 @@
+comparison	outcome	n_tested	n_observed	adjusted_high_low_ratio	ci_low	ci_high
+primary	eqtl	8640373	1113507	1.66206	1.36401	2.06412
+primary	lead	8640373	10164	2.56476	2.22665	2.99619
+primary	finemapped	8640373	5964	2.28636	1.83967	2.91295
+exclude_chr6	eqtl	8054446	1009185	1.80232	1.49837	2.24019
+exclude_chr6	lead	8054446	9584	2.4363	2.11651	2.82511
+exclude_chr6	finemapped	8054446	5563	2.15345	1.69721	2.7649
+finer_covariate_bins	eqtl	8640373	1113507	1.64686	1.37198	2.02067
+finer_covariate_bins	lead	8640373	10164	2.52728	2.19574	2.93756
+finer_covariate_bins	finemapped	8640373	5964	2.2688	1.83057	2.85941
