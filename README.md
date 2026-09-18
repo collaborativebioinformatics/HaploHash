@@ -109,8 +109,6 @@ are being built in parallel by the tracks below and are not yet wired together.
 
 ## Findings
 
-## Findings
-
 ### Re-identification exposure
 
 Computed from `block_stats.tsv`: 39,077 haploblocks, 5,096 haplotypes (2,548
