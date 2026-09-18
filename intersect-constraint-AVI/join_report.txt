@@ -1,7 +1,7 @@
 ==============================================================================
 JOIN REPORT: block constraint statistics x block AVI scores
 ==============================================================================
-generated          : 2026-09-17T16:45:56
+generated          : 2026-09-17T16:56:47
 input directory    : /mnt/user-data/uploads/HaploHash/intersect-constraint-AVI
 left  (AVI)        : block_avi_scores.tsv   rows = 39,074
 right (constraint) : block_cluster_stats.tsv   rows = 39,077

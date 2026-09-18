@@ -574,7 +574,7 @@ def main(argv=None) -> int:
         merged, outdir / "fig_constraint_vs_avi_double",
         width_in=180 / 25.4, height_in=118 / 25.4, base_fs=6, tick_fs=4.8,
         header_fs=6, rho_fs=4.8, smin=0.35, smax=7.0, dot_alpha=0.06,
-        trend_lw=0.9, nbins_ticks=3, letters=True, dpi=600,
+        trend_lw=0.9, nbins_ticks=5, letters=True, dpi=600,
         wspace=0.52, hspace=0.42, minor_ticks=False, row_label_pad=26,
         legend_y=0.010, log_numticks=4,
         margins={"left": 0.072, "right": 0.992, "top": 0.915, "bottom": 0.125},
