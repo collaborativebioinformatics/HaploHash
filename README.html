@@ -1,88 +1,186 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>readme</title>
-<style>
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
-div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
-  vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-</style>
-
-
-<script src="README_files/libs/clipboard/clipboard.min.js"></script>
-<script src="README_files/libs/quarto-html/quarto.js"></script>
-<script src="README_files/libs/quarto-html/popper.min.js"></script>
-<script src="README_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="README_files/libs/quarto-html/anchor.min.js"></script>
-<link href="README_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="README_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="README_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="README_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="README_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-
-
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>HaploHash</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
 </head>
-
-<body class="fullcontent">
-
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
-<main class="content" id="quarto-document-content">
-
-
-
-
-<section id="haplohash" class="level1">
-<h1>HaploHash</h1>
-<p>Haploblock-level functional annotation + privacy-preserving genomic hashes. 16–18 Sep 2026.</p>
+<body>
+<header id="title-block-header">
+<h1 class="title">HaploHash</h1>
+</header>
+<h1 id="haplohash">HaploHash</h1>
+<p><strong>Haploblock-level functional annotation + privacy-preserving
+genomic hashes.</strong> Team 11 · 16–18 Sep 2026 · <a
+href="https://www.haploblocks.org/">haploblocks.org</a></p>
+<p>39,141 haploblocks (hg38) · 2,548 individuals · 5,096 haplotypes ·
+64-bit hash</p>
 <pre><code>39,141 haploblocks (hg38)   +   AlphaGenome Atlas | gnomAD
             \                          /
              \___ aggregate to block __/   top-1% statistic
@@ -90,613 +188,296 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                annotated haploblocks
                  /                \
            haplograph          64-bit hash
-   nodes / edges / islands   S|CH:ROM|HAPLO|CLUSTER|VAR
+   nodes / edges / islands   S|CHROM|HAPLO|CLUSTER|VAR
       lift-weighted          re-identification attack</code></pre>
-<p><img src="docs/image.png" class="img-fluid" alt="workflow"> <img src="docs/steps_1_3_r_tools_R.png" class="img-fluid" alt="workflow"> <img src="docs/image_updated.png" class="img-fluid" alt="workflow"></p>
-<section id="the-problem" class="level2">
-<h2 class="anchored" data-anchor-id="the-problem">The problem</h2>
-<p>Genomic data sharing sits on a tension: block-level haplotype structure carries strong functional signal (regulatory activity, constraint, burden), but that same structure is exactly what makes individuals re-identifiable across datasets. Existing mitigations either strip out the functional signal (allele-frequency scrubbing) or leave the haplotype structure intact and exploitable. There’s no compact representation that keeps the former while resisting the latter.</p>
-</section>
-<section id="the-idea" class="level2">
-<h2 class="anchored" data-anchor-id="the-idea">The idea</h2>
-<p>Treat each of the 39,141 hg38 haploblocks as the unit of both annotation and encoding:</p>
+<h2 id="the-task">The task</h2>
 <ol type="1">
-<li><strong>Annotate</strong> every block with functional scores (AlphaGenome Atlas activity, gnomAD constraint) aggregated with a top-1% statistic, so the signal reflects the most extreme regulatory/constraint element in the block rather than a diluted mean.</li>
-<li><strong>Encode</strong> each annotated block into a 64-bit hash (<code>S|CHROM|HAPLO|CLUSTER|VAR</code>) that represents haplotype identity without exposing raw variant-level data.</li>
-<li><strong>Attack</strong> the hash scheme ourselves — treat re-identification as the adversarial baseline the encoding has to survive, not an afterthought.</li>
+<li><strong>Score</strong> every variant in every haploblock with
+AlphaGenome Atlas — interpret how genetic variation impacts biology at
+the molecular level.</li>
+<li><strong>Annotate</strong> the variants with additional biological
+information.</li>
+<li><strong>Hash</strong> variants, AVI scores and functional
+annotations for anonymisation.</li>
+<li><strong>Attack</strong> — reverse engineer our own anonymisation to
+see if it is secure.</li>
 </ol>
-</section>
-<section id="scientific-question" class="level2">
-<h2 class="anchored" data-anchor-id="scientific-question">Scientific question</h2>
-<p>Can block-level functional annotation (AlphaGenome Atlas + gnomAD) predict effect sizes at the haplotype level, and can a compact 64-bit hash encode enough haplotype signal for downstream analysis (burden/SKAT/ACAT) while remaining resistant to re-identification attacks?</p>
-</section>
-<section id="how-it-works" class="level2">
-<h2 class="anchored" data-anchor-id="how-it-works">How it works</h2>
-<p><strong>Features per block</strong></p>
-<table class="caption-top table">
+<h2 id="what-are-haploblocks">What are haploblocks?</h2>
+<figure>
+<img src="docs/slides/haploblocks_illustration.jpg"
+alt="What are haploblocks" />
+<figcaption aria-hidden="true">What are haploblocks</figcaption>
+</figure>
+<p>Recombination-cold blocks that are inherited as single units:</p>
+<figure>
+<img src="docs/slides/haploblock_pipeline.png"
+alt="Haploblock pipeline" />
+<figcaption aria-hidden="true">Haploblock pipeline</figcaption>
+</figure>
+<p>Phased haplotypes per block are merged into region-level FASTA and
+clustered with MMseqs2 — each cluster becomes one hash value:</p>
+<figure>
+<img src="docs/slides/cluster_rank_abundance.png"
+alt="Rank-abundance of cluster sizes, all chromosomes" />
+<figcaption aria-hidden="true">Rank-abundance of cluster sizes, all
+chromosomes</figcaption>
+</figure>
+<h2 id="what-is-alphagenome">What is AlphaGenome?</h2>
+<figure>
+<img src="docs/slides/alphagenome_overview.png"
+alt="AlphaGenome overview" />
+<figcaption aria-hidden="true">AlphaGenome overview</figcaption>
+</figure>
+<p>AlphaGenome reads the reference sequence plus one variant and
+predicts its impact on expression, splicing and regulation.
+<strong>AVI</strong> ranks every possible SNV genome-wide — PHRED 20 =
+“worse than 99% of all possible mutations”.</p>
+<h2 id="does-avi-match-real-biology">Does AVI match real biology?</h2>
+<p>Missing heritability lives in rare variants with large effects
+(Manolio et al., <em>Nature</em>):</p>
+<figure>
+<img src="docs/slides/effect_size_vs_frequency.png"
+alt="Effect size vs allele frequency" />
+<figcaption aria-hidden="true">Effect size vs allele
+frequency</figcaption>
+</figure>
+<p>Consistency check — haploblocks ranked by AVI risk vs. real GTEx
+eQTLs:</p>
+<figure>
+<img src="docs/slides/avi_vs_gtex_eqtl.png"
+alt="AVI risk vs GTEx eQTL density" />
+<figcaption aria-hidden="true">AVI risk vs GTEx eQTL
+density</figcaption>
+</figure>
+<p><strong>Highest-risk blocks carry 3.2× more real eQTLs than
+lowest-risk blocks</strong> — 39,074 haploblocks in 10 risk groups,
+Spearman ρ = 0.39, p &lt; 0.001.</p>
+<h2 id="constraint-vs-avi">Constraint vs AVI</h2>
+<p>Hypothesis: the most constrained haploblocks should be the most
+deleterious if mutated. We used AlphaGenome to screen perturbations
+across all blocks — including regions where no natural variation
+exists.</p>
+<p><img src="docs/slides/constraint_avi_mean.png"
+alt="AVI mean vs cluster count" /> <img
+src="docs/slides/constraint_avi_top1_per_kb.png"
+alt="AVI top-1% per kb vs cluster count" /></p>
+<p><strong>Result: the opposite sign.</strong> AVI rises with haplotype
+diversity, robust across every specification (+0.030, p = 5×10⁻⁶;
++0.099, p = 10⁻⁹⁵) — likely an allele-frequency artifact: AlphaGenome is
+least reliable exactly where empirical variation is absent.</p>
+<h2 id="biological-annotations">Biological annotations</h2>
+<p>GO enrichment on genes overlapping the blocks (dot size = count,
+colour = p.adj, x = GeneRatio):</p>
+<table>
 <colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
 </colgroup>
 <thead>
-<tr class="header">
-<th>Feature</th>
-<th>Source</th>
-<th>Note</th>
+<tr>
+<th>Molecular function</th>
+<th>Biological process</th>
+<th>Cellular component</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td><code>avi_max</code>, <code>avi_top10_mean</code></td>
-<td>Atlas AVI, Tabix</td>
-<td>strongest possible alternate alleles in the block</td>
-</tr>
-<tr class="even">
-<td><code>avi_top1_count</code>, <code>avi_top1_fraction</code></td>
-<td>Atlas AVI, Tabix</td>
-<td>number/fraction of alleles with PHRED &gt;= 20</td>
-</tr>
-<tr class="odd">
-<td><code>avi_top1_per_kb</code></td>
-<td>Atlas AVI, Tabix</td>
-<td>top-1% allele density, adjusted for block length</td>
-</tr>
-<tr class="even">
-<td><code>rnaseq_abs</code></td>
-<td>Atlas raw, API</td>
-<td>signed — keep sum <em>and</em> abs</td>
-</tr>
-<tr class="odd">
-<td><code>gnocchi_mean</code></td>
-<td>gnomAD non-coding</td>
-<td>positional, 1 kb</td>
-</tr>
-<tr class="even">
-<td><code>loeuf_min</code></td>
-<td>gnomAD constraint</td>
-<td>gene-joined; no gene = NA, not 0</td>
-</tr>
-<tr class="odd">
-<td>covariates</td>
-<td>length, SNV density, coding fraction, genes</td>
-<td></td>
+<tr>
+<td><img src="docs/slides/go_mf_dotplot.png" alt="GO MF dotplot" /></td>
+<td><img src="docs/slides/go_bp_dotplot.png" alt="GO BP dotplot" /></td>
+<td><img src="docs/slides/go_cc_dotplot.png" alt="GO CC dotplot" /></td>
 </tr>
 </tbody>
 </table>
-<p>Circular, excluded: PhastCons, Cactus, allele frequency (AVI inputs); recombination rate (defines blocks).</p>
-<p><strong>Data</strong>: 1000G — 2,548 individuals, 26 populations, <code>data.haploblocks.org</code>. hg38, SNVs only. UKB pending.</p>
-</section>
-<section id="how-to-use-it" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-use-it">How to use it</h2>
-<p>The end-to-end pipeline is <strong>not ready yet</strong>. What exists so far:</p>
-<section id="annotate_atlas" class="level3">
-<h3 class="anchored" data-anchor-id="annotate_atlas"><code>annotate_atlas/</code></h3>
+<p>Example block — <strong>chr22:27,840,691–28,224,919</strong> (PITPNB,
+TTC28 · 60 transcript isoforms):</p>
 <ul>
-<li>Scrapes haploblock intervals from <code>data.haploblocks.org</code> into a sorted, overlap-checked <code>blocks.bed</code> (39,074 blocks recovered vs.&nbsp;39,141 expected, hg38).</li>
-<li><code>score_blocks.py</code> tabix-queries the AlphaGenome Atlas AVI PHRED scores per block, writing <code>block_scores.tsv</code> (<code>n_snv</code>, <code>avi_top1</code>, <code>avi_dens</code>, <code>length_kb</code>; PHRED ≥ 20, pooled, unsigned).</li>
-<li><strong>TODO</strong>: AVI column indices need confirming against the real file once cluster VM access lands.</li>
+<li>GO BP / MF: 6 / 11 significant terms — all PITPNB, lipid
+transport</li>
+<li>GO CC: 3 significant terms — all TTC28, mitotic spindle</li>
+<li>Reactome: 3 pathways — phospholipid / PI metabolism</li>
+<li>⚠️ all hits driven by a single gene — interpret cautiously</li>
 </ul>
-<p>Downstream steps (haplograph construction, hash encoding, attack simulation, effect-size modeling) are being built in parallel by the tracks below and are not yet wired together.</p>
-</section>
-</section>
-<section id="findings" class="level2">
-<h2 class="anchored" data-anchor-id="findings">Findings</h2>
-<p><em>To be filled in as tracks report results.</em></p>
-</section>
-<section id="team" class="level2">
-<h2 class="anchored" data-anchor-id="team">Team</h2>
-<table class="caption-top table">
+<h2 id="hashing-privacy">Hashing &amp; privacy</h2>
+<p>Each (block, cluster) pair encodes to one 64-bit word — strand,
+chromosome, haploblock, cluster, variants, AVI:</p>
+<figure>
+<img src="docs/slides/hash_architecture.png"
+alt="64-bit hash encoding architecture" />
+<figcaption aria-hidden="true">64-bit hash encoding
+architecture</figcaption>
+</figure>
+<table>
 <thead>
-<tr class="header">
+<tr>
+<th>Field</th>
+<th>Bits</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strand</td>
+<td>1</td>
+<td>hap1 / hap2</td>
+</tr>
+<tr>
+<td>chrom</td>
+<td>5</td>
+<td>1–24</td>
+</tr>
+<tr>
+<td>block</td>
+<td>16</td>
+<td>0–65,535</td>
+</tr>
+<tr>
+<td>cluster</td>
+<td>13</td>
+<td>0–8,191</td>
+</tr>
+<tr>
+<td>variants</td>
+<td>10</td>
+<td>0–1,023</td>
+</tr>
+<tr>
+<td>avi</td>
+<td>8</td>
+<td>quantised PHRED</td>
+</tr>
+<tr>
+<td>reserved</td>
+<td>11</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>total</strong></td>
+<td><strong>64</strong></td>
+<td><strong>53 used</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Re-identification exposure</strong> (a singleton cluster
+identifies a haplotype by one block alone):</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr>
+<td>Singleton clusters genome-wide</td>
+<td>7.7 M</td>
+</tr>
+<tr>
+<td>Blocks containing at least one singleton</td>
+<td>91.5%</td>
+</tr>
+<tr>
+<td>Blocks at which the average person is a singleton</td>
+<td>3,027</td>
+</tr>
+<tr>
+<td>Suppressing the 5,000 most-exposed blocks</td>
+<td>removes 50.8% of singletons</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Mitigation — two orders of magnitude apart:</strong></p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Suppress whole blocks until no singletons remain</td>
+<td>91.5% of blocks lost</td>
+</tr>
+<tr>
+<td>Per-cluster k-anonymity (k = 2)</td>
+<td><strong>3.9% of the dataset suppressed</strong></td>
+</tr>
+</tbody>
+</table>
+<p>AVI scores and annotations stay block-level; no individual allele
+states are exposed.</p>
+<h2 id="repo-map">Repo map</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Folder</th>
+<th>What</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>annotate_atlas/</code></td>
+<td>AlphaGenome Atlas scoring, chr22 pilot QC, GTEx comparison</td>
+</tr>
+<tr>
+<td><code>intersect-constraint-AVI/</code></td>
+<td>constraint vs AVI analysis</td>
+</tr>
+<tr>
+<td><code>bio_annotations/</code></td>
+<td>GO / Reactome enrichment</td>
+</tr>
+<tr>
+<td><code>hash/</code></td>
+<td>64-bit encoding (<code>haplohash.py</code>)</td>
+</tr>
+<tr>
+<td><code>reid/</code></td>
+<td>re-identification attack</td>
+</tr>
+</tbody>
+</table>
+<h2 id="team">Team</h2>
+<table>
+<thead>
+<tr>
 <th>Who</th>
 <th>Track</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Mauricio Moldes</td>
 <td>block filtering, gene counts</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Alejandra Caballero, Mina</td>
 <td>annotation databases, pruning</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Markus Marandi</td>
 <td>AlphaGenome atlas</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Robert Campbell, David Bonet</td>
 <td>effect sizes (burden / SKAT / ACAT)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Aditya Kumar Karna</td>
 <td>encoding, hashing, hash attack</td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="data" class="level2">
-<h2 class="anchored" data-anchor-id="data">Data</h2>
-<p>1000G — 2,548 individuals, 26 populations, <code>data.haploblocks.org</code>. hg38, SNVs only. UKB pending.</p>
-</section>
-<section id="annotate_atlas-1" class="level2">
-<h2 class="anchored" data-anchor-id="annotate_atlas-1">annotate_atlas/</h2>
-<p>Scrapes haploblock intervals from data.haploblocks.org into a sorted, overlap-checked <code>blocks.bed</code> (39,074 blocks, hg38, vs ~39,141 expected). <code>score_blocks.py</code> streams the AlphaGenome Atlas AVI Tabix download across those intervals and writes one row per block. It validates the real file header or requires explicit column numbers; it does not silently assume that the last column is AVI PHRED.</p>
-<p>Inspect the downloaded file first:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> annotate_atlas/score_blocks.py <span class="dt">\</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  annotate_atlas/blocks.bed /path/to/avi.tsv.gz <span class="at">--inspect</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>If the header identifies the AVI PHRED column, run:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> annotate_atlas/score_blocks.py <span class="dt">\</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  annotate_atlas/blocks.bed /path/to/avi.tsv.gz <span class="dt">\</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  annotate_atlas/block_scores.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>For a headerless file, pass 1-based column numbers reported by <code>--inspect</code>:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python3</span> annotate_atlas/score_blocks.py <span class="dt">\</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  annotate_atlas/blocks.bed /path/to/avi.tsv.gz <span class="dt">\</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  annotate_atlas/block_scores.tsv <span class="dt">\</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--chrom-column</span> 1 <span class="at">--position-column</span> 2 <span class="at">--phred-column</span> 6</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The full static SNV Atlas contains roughly nine billion alternate alleles, so the genome-wide run belongs on the cluster and should read the local download, not the API.</p>
-</section>
-<section id="from-variant-scores-to-haploblocks" class="level2">
-<h2 class="anchored" data-anchor-id="from-variant-scores-to-haploblocks">From variant scores to haploblocks</h2>
-<p>There are two different outputs. Keep them separate.</p>
-<section id="static-block-annotation" class="level3">
-<h3 class="anchored" data-anchor-id="static-block-annotation">1. Static block annotation</h3>
-<p>For block <code>h</code>, let <code>V_h</code> be every possible Atlas alternate allele whose hg38 position lies in the half-open block interval. <code>score_blocks.py</code> calculates:</p>
-<pre class="text"><code>avi_max(h)           = max(q_v)
-avi_top10_mean(h)    = mean(10 largest q_v)
-avi_top1_count(h)    = sum(1[q_v &gt;= 20])
-avi_top1_fraction(h) = avi_top1_count / number of scored alleles
-avi_top1_per_kb(h)   = avi_top1_count / block length in kb</code></pre>
-<p>Here <code>q_v</code> is AVI PHRED. PHRED 20 is the Atlas genome-wide top 1%. AVI is an unsigned prioritisation rank that mixes AlphaGenome predictions with conservation and coding features. A sum or mean of all AVI PHRED values is therefore not a signed block effect. The static annotation measures a block’s <em>functional opportunity</em>: how many potentially important substitutions the interval contains.</p>
-</section>
-<section id="observed-haplotype-or-cluster-annotation" class="level3">
-<h3 class="anchored" data-anchor-id="observed-haplotype-or-cluster-annotation">2. Observed haplotype or cluster annotation</h3>
-<p>To annotate the genomic hashes, use only alleles carried by that phased haplotype:</p>
-<pre class="text"><code>phased 1000G VCF
-  -&gt; split and left-normalise multiallelic records on hg38
-  -&gt; join each ALT by (chromosome, position, ALT) to Atlas
-  -&gt; assign the allele to one BED haploblock
-  -&gt; group by (sample, haplotype, block_id)
-  -&gt; join the existing haplotype-cluster ID</code></pre>
-<p>Useful per-haplotype features are <code>carried_avi_max</code>, <code>carried_top1_count</code>, and <code>carried_top1_fraction</code>. At cluster level, report the median member value and the fraction of cluster members carrying at least one PHRED &gt;= 20 allele. Do not copy the static block score onto every cluster and call it a genotype effect: that loses the individual’s allele state.</p>
-</section>
-<section id="direction-and-interactions" class="level3">
-<h3 class="anchored" data-anchor-id="direction-and-interactions">Direction and interactions</h3>
-<p>AVI cannot say whether a haplotype increases or decreases expression. For a phenotype-specific analysis, query non-active, signed Atlas modalities (for example RNA-seq, CAGE or accessibility), select the relevant tissues and genes, take the maximum absolute score across the selected tracks for filtering, and retain the original sign for burden models. This follows the Atlas paper’s aggregate-testing design.</p>
-<p>The precomputed Atlas rows score one variant at a time. Summing carried single-variant scores assumes no within-block interaction. For selected blocks shorter than AlphaGenome’s 1 Mb input, score the complete phased sequence with the AlphaGenome haplotype workflow and compare it with the single-variant results:</p>
-<pre class="text"><code>non_additivity(h) = score(combined haplotype) - sum(score(single variants))</code></pre>
-<p>That combined prediction is a second-stage analysis, not something recoverable from the AVI download alone.</p>
-</section>
-</section>
-</section>
-
-</main>
-<!-- /main column -->
-<script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
-    }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
-        return container.innerHTML
-      } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
-      });
-    }
-  }
-});
-</script>
-</div> <!-- /content -->
-
-
-
-
-</body></html>
+<h2 id="data">Data</h2>
+<p>1000G — 2,548 individuals, 26 populations, <a
+href="https://data.haploblocks.org">data.haploblocks.org</a>. hg38, SNVs
+only. UKB pending.</p>
+</body>
+</html>
